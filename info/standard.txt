@@ -1,0 +1,29 @@
+hi::Hello, feel free to ask about our school!
+hi!::Hello, feel free to ask about our school!
+hi?::Hello, feel free to ask about our school!
+hi.::Hello, feel free to ask about our school!
+hello::Hello and welcome! What can I tell you about our school?
+hello!::Hello and welcome! What can I tell you about our school?
+hello?::Hello and welcome! What can I tell you about our school?
+hey::Hello and welcome! What can I tell you about our school?
+hey!::Hello and welcome! What can I tell you about our school?
+What's up?::Hello, feel free to ask about our school!
+bye::Goodbye, feel free to come back to ask more questions!
+bye!::Goodbye, feel free to come back to ask more questions!
+bye.::Goodbye, feel free to come back to ask more questions!
+goodbye.::Goodbye, feel free to come back to ask more questions!
+goodbye!::Goodbye, feel free to come back to ask more questions!
+goodbye?::Goodbye, feel free to come back to ask more questions!
+good bye.::Goodbye, feel free to come back to ask more questions!
+later::Goodbye, feel free to come back to ask more questions!
+later!::Goodbye, feel free to come back to ask more questions!
+good bye!::Goodbye, feel free to come back to ask more questions!
+good bye?::Goodbye, feel free to come back to ask more questions!
+good bye?::Goodbye, feel free to come back to ask more questions!
+how are you?::I'm doing well and thanks for asking! What can I tell you about our school?
+how r u?::I'm doing well and thanks for asking! What can I tell you about our school?
+thanks::You're welcome!
+thanks!::You're welcome!
+thank you::You're welcome!
+thank you!::You're welcome!
+ty::You're welcome!
