@@ -1,4 +1,4 @@
-import CCCBCommonKeywords
+import CCBCommonKeywords
 
 CCBCommonKeywords.create_index_from_urls([
     "https://www.samford.edu/",
