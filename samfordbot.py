@@ -1,5 +1,4 @@
 from langchain_community.document_loaders import UnstructuredURLLoader
-from langchain_community.text_splitter import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.llms import HuggingFaceHub
@@ -14,11 +13,6 @@ def load_data(urls):
     loaders = UnstructuredURLLoader(urls=urls)
     data = loaders.load()
     return data
-
-def split_documents(data):
-    text_splitter = CharacterTextSplitter(separator='\n', chunk_size=1000, chunk_overlap=200)
-    docs = text_splitter.split_documents(data)
-    return docs
 
 def initialize_chain(docs, temperature, k):
     embeddings = HuggingFaceEmbeddings()
@@ -65,7 +59,7 @@ def main():
     st.write("Meet J.A.R.V.I.S: Your interactive browsing companion. Seamlessly engage with websites using AI. Explore, question, and navigate—transforming your browsing experience into conversations and discovery!")
     predefined_urls = ["https://example.com/document1", "https://example.com/document2"]
     data = load_data(predefined_urls)
-    docs = split_documents(data)
+    docs = data  # Assuming 'docs' needs to be directly used without splitting
     temperature = 0.5
     k_value = 3
     qa = initialize_chain(docs, temperature, k_value)
