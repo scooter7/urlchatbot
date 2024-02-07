@@ -1,12 +1,12 @@
+from langchain_community.document_loaders import UnstructuredURLLoader
+from langchain_community.text_splitter import CharacterTextSplitter
+from langchain_community.vectorstores import FAISS
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.llms import HuggingFaceHub
+from langchain_community.chains import ConversationalRetrievalChain
+from langchain_community.prompts import PromptTemplate
 import streamlit as st
 from streamlit_chat import message
-from langchain.document_loaders import UnstructuredURLLoader
-from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import FAISS
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain import HuggingFaceHub
-from langchain.chains import ConversationalRetrievalChain
-from langchain.prompts import PromptTemplate
 from github import Github
 import os
 
@@ -47,19 +47,15 @@ def conversational_chat(qa, query):
     return result["answer"]
 
 def save_chat_history_to_github():
-    # Set up the GitHub API
     g = Github(st.secrets["GITHUB_TOKEN"])
     repo = g.get_repo("scooter7/urlchatbot")
-    chat_history_path = "content/chat_history.txt"  # Path in the repository
-    
+    chat_history_path = "content/chat_history.txt"  
     chat_history_content = "\n".join([f"{pair[0]}: {pair[1]}" for pair in st.session_state['history']])
-    
     try:
         contents = repo.get_contents(chat_history_path)
         repo.update_file(contents.path, "Updating chat history", chat_history_content, contents.sha)
         st.success("Chat history updated successfully in GitHub!")
     except Exception as e:
-        # If the file does not exist, create it
         repo.create_file(chat_history_path, "Creating chat history", chat_history_content)
         st.success("Chat history created successfully in GitHub!")
 
@@ -67,41 +63,31 @@ def main():
     st.markdown("<h1 style='text-align: center;'>J.A.R.V.I.S</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center;'>Your Virtual Web Companion!</h3>", unsafe_allow_html=True)
     st.write("Meet J.A.R.V.I.S: Your interactive browsing companion. Seamlessly engage with websites using AI. Explore, question, and navigate—transforming your browsing experience into conversations and discovery!")
-  
     predefined_urls = ["https://example.com/document1", "https://example.com/document2"]
     data = load_data(predefined_urls)
     docs = split_documents(data)
     temperature = 0.5
     k_value = 3
-
     qa = initialize_chain(docs, temperature, k_value)
-
     if 'history' not in st.session_state:
         st.session_state['history'] = []
-
     if 'user_info' not in st.session_state:
         st.session_state['user_info'] = {'full_name': '', 'email': ''}
-
     with st.form(key='user_info_form'):
         st.session_state['user_info']['full_name'] = st.text_input("Full Name:", key='full_name')
-        st.session_state['user_info']['email'] = st.text_input("Email Address:", key='email', type="email")
+        st.session_state['user_info']['email'] = st.text_input("Email Address:", key='email')
         submit_user_info = st.form_submit_button(label='Submit Information')
-
     if not submit_user_info or not st.session_state['user_info']['full_name'] or not st.session_state['user_info']['email']:
         st.stop()
-
     response_container = st.container()
     container = st.container()
-
     with container:
         with st.form(key='my_form', clear_on_submit=True):
             user_input = st.text_input("Query:", placeholder="Enter question", key='input')
             submit_button = st.form_submit_button(label='Send')
-
         if submit_button and user_input:
             output = conversational_chat(qa, user_input)
-            save_chat_history_to_github()  # Save chat history after each conversation
-
+            save_chat_history_to_github()
     if st.session_state['generated']:
         with response_container:
             for i in range(len(st.session_state['generated'])):
