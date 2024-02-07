@@ -3,3 +3,4 @@ streamlit_chat
 langchain
 PyGithub
 unstructured
+sentence-transformers
