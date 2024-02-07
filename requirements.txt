@@ -4,3 +4,4 @@ langchain
 PyGithub
 unstructured
 sentence-transformers
+faiss-cpu
