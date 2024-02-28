@@ -1,13 +1,16 @@
-from langchain_community.document_loaders import UnstructuredURLLoader
-from langchain_community.vectorstores import FAISS
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.llms import HuggingFaceHub
-from langchain_community.chains import ConversationalRetrievalChain
-from langchain_community.prompts import PromptTemplate
+from langchain.document_loaders import UnstructuredURLLoader
+from langchain.text_splitter import CharacterTextSplitter
+import faiss
+from langchain.vectorstores import FAISS
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain import HuggingFaceHub
+import os
+from langchain.chains.question_answering import load_qa_chain
+from langchain.chains import ConversationalRetrievalChain
+from langchain.prompts import PromptTemplate
+from langchain.memory import ConversationBufferMemory
 import streamlit as st
 from streamlit_chat import message
-from github import Github
-import os
 
 def load_data(urls):
     loaders = UnstructuredURLLoader(urls=urls)
